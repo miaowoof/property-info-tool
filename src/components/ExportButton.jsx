@@ -1,4 +1,4 @@
-import { TAGS } from "../App";
+import { TAGS } from "../constants";
 
 export default function ExportButton({ properties, single }) {
   const handleExport = () => {

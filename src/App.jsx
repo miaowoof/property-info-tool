@@ -1,3 +1,5 @@
+import { TAGS } from "./constants";
+export { TAGS };
 import { useState, useEffect, useCallback } from "react";
 import Dashboard from "./pages/Dashboard";
 import PropertyDetail from "./pages/PropertyDetail";
@@ -39,13 +41,6 @@ function saveHistory(history) {
   catch {}
 }
 
-export const TAGS = [
-  { id: "contacted", label: "Contacted", color: "#60a5fa" },
-  { id: "not_interested", label: "Not Interested", color: "#f87171" },
-  { id: "follow_up", label: "Follow Up", color: "#fbbf24" },
-  { id: "in_progress", label: "In Progress", color: "#34d399" },
-  { id: "converted", label: "Converted", color: "#a78bfa" },
-];
 
 export default function App() {
   const [dashboardKey, setDashboardKey] = useState(0);

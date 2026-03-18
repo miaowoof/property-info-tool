@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { TAGS } from "../App";
+import { TAGS } from "../constants";
 
 export default function MapView({ properties, onSelectProperty }) {
   const mapRef = useRef(null);

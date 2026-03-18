@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ExportButton from "../components/ExportButton";
-import { TAGS } from "../App";
+import { TAGS } from "../constants";
 
 const InfoRow = ({ label, value, highlight }) => {
   if (!value) return null;
@@ -106,7 +106,7 @@ const BusinessModal = ({ business: b, onClose }) => {
   );
 };
 
-export default function PropertyDetail({ property: p, onBack, onUpdateMeta }) {
+export default function PropertyDetail({ property: p, onBack, onUpdateMeta, onSearchAddress }) {
   const statusClass = {
     Vacant: "status-vacant",
     Occupied: "status-occupied",
@@ -363,12 +363,15 @@ export default function PropertyDetail({ property: p, onBack, onUpdateMeta }) {
               return (
               <div key={li} style={li > 0 ? { borderTop: "1px solid var(--border)" } : {}}>
                 {/* "Did you mean?" banner */}
-                {addressMismatch && li === 0 && (
-                  <div style={{ padding: "8px 20px", background: "var(--accent)11", borderBottom: "1px solid var(--accent)33", display: "flex", alignItems: "center", gap: 8 }}>
+                {addressMismatch && li === 0 && onSearchAddress && (
+                  <button
+                    onClick={() => onSearchAddress(listing.address + ", San Francisco, CA")}
+                    style={{ width: "100%", padding: "9px 20px", background: "var(--accent)11", borderBottom: "1px solid var(--accent)33", border: "none", borderTop: "none", display: "flex", alignItems: "center", gap: 8, cursor: "pointer", textAlign: "left" }}
+                  >
                     <span style={{ fontSize: 11, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>
-                      ⚠ LoopNet lists this building as <strong>{listing.address}</strong> — did you mean that address?
+                      ⚠ LoopNet lists this building as <strong>{listing.address}</strong> — click to search that address →
                     </span>
-                  </div>
+                  </button>
                 )}
                 {/* Header: address + link */}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 20px 4px" }}>

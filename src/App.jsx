@@ -49,6 +49,7 @@ export const TAGS = [
 
 export default function App() {
   const [dashboardKey, setDashboardKey] = useState(0);
+  const [pendingSearch, setPendingSearch] = useState(null);
   const [page, setPage] = useState("dashboard");
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [history, setHistory] = useState(loadHistory);
@@ -86,6 +87,12 @@ export default function App() {
       return updated;
     });
   }, [enrichProperty]);
+
+  const handleSearchAddress = useCallback((address) => {
+    setPage("dashboard");
+    setSelectedProperty(null);
+    setPendingSearch(address);
+  }, []);
 
   const handleBack = useCallback(() => {
     setPage("dashboard");
@@ -135,6 +142,7 @@ export default function App() {
             property={selectedProperty}
             onBack={handleBack}
             onUpdateMeta={updateMeta}
+            onSearchAddress={handleSearchAddress}
           />
         ) : page === "history" ? (
           <History
@@ -162,7 +170,7 @@ export default function App() {
             onGoToDashboard={() => setPage("dashboard")}
           />
         ) : (
-          <Dashboard key={dashboardKey} onSelectProperty={handleSelectProperty} />
+          <Dashboard key={dashboardKey} onSelectProperty={handleSelectProperty} pendingSearch={pendingSearch} onClearPending={() => setPendingSearch(null)} />
         )}
       </div>
     </div>
